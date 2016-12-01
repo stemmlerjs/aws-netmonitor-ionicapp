@@ -77,3 +77,32 @@
     height: 10px;
     display: block;
 }
+
+.logsTable {
+      background-color: #412555;
+    border: solid black 1px;
+    border-radius: 3px;
+}
+
+.log {
+  color: white;
+  padding: 17px;
+  border-bottom: solid 1px black;
+}
+
+.socketStatus {
+      background-color: #583573;
+    color: white;
+    font-size: 17px;
+    height: 35px;
+    padding-left: 15px;
+    border: solid 1px black;
+    border-radius: 2px;
+        margin-right: 8px;
+}
+
+.divider {
+  margin-top: 8px !important;
+  border-top: solid 1px black;
+  margin-bottom: 8px !important;
+}

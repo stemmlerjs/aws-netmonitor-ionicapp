@@ -1,6 +1,7 @@
 angular.module('app.controllers', [
   'app.controllers.maincontroller',
-  'app.controllers.logcontroller'
+  'app.controllers.logcontroller',
+  'app.controllers.streamctrl'
 ])
 
 

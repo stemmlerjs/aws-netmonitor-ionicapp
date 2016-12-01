@@ -14,6 +14,10 @@ angular.module('app.controllers.logcontroller', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.dispatchGetLogGroups()
+  });
+
   $scope.logGroups = []
   $scope.loaded = false;
 

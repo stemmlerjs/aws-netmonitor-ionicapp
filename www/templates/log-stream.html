@@ -1,0 +1,26 @@
+<!--
+  STREAMS
+-->
+
+<ion-view view-title="Stream">
+  <ion-content class="padding" style="background-color:#301C41">
+
+    <div class="row">
+      <div class="socketStatus col col-75">{{ socketStatus }}</div>
+
+      <button class="col button button-royal" style="min-height:0px">{{ connectionAction }}</button>
+    </div>
+
+    <div class="divider row"></div>
+    
+    <div class="logsTable">
+      <div ng-repeat="log in logData" class="log">
+        {{log.message}}
+      </div>
+    </div>
+
+
+    
+
+  </ion-content>
+</ion-view>

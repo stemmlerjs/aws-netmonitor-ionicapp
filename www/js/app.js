@@ -80,18 +80,17 @@ angular.module('starter', ['ionic',
         }
       }
     })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+    .state('tab.log-stream', {
+      url: '/stream/:logGroup/:logStreamName',
+      views: {
+        'tab-logs': {
+          templateUrl: 'templates/log-stream.html',
+          controller: 'StreamCtrl'
+        }
       }
-    }
-  });
+    })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });
