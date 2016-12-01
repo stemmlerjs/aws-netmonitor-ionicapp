@@ -1,0 +1,21 @@
+<ion-view view-title="Log Groups">
+  <ion-content style="background-color: #F6F8FB;">
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-spinner class="center-spinner" ng-show="!loaded"></ion-spinner>
+    <ion-list>
+
+      <!-- Log Items -->
+      <ion-item style="margin: 10px; height: 106px;" class="item-remove-animate item-avatar item-icon-right" nav-direction="back" ng-repeat="logGp in logGroups" type="item-text-wrap" href="#/tab/logs/{{ logGp.logGroupName.split('/').join('$') }}">
+        <h2 style="font-size: 21px; height: 29px;">{{logGp.logGroupName}}</h2>
+        <p>{{logGp.arn}}</p>
+        <div>Size: {{logGp.storedBytes}}B &nbsp;&nbsp; | Created: {{logGp.date}}</div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>

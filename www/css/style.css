@@ -1,0 +1,79 @@
+/* Empty. Add your own CSS if you like */
+
+@font-face {
+  font-family: 'Bungee';
+  src: url('Bungee-Regular.ttf')  format('truetype')
+}
+
+.centered-login-page {
+  display: table !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: -moz-linear-gradient(90deg, rgba(121,70,158,1) 0%, rgba(53,69,133,1) 100%); /* ff3.6+ */
+  background: -moz-linear-gradient(90deg, rgba(53,69,133,1) 0%, rgba(168,96,219,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(168,96,219,1)), color-stop(100%, rgba(53,69,133,1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(90deg, rgba(53,69,133,1) 0%, rgba(168,96,219,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(90deg, rgba(53,69,133,1) 0%, rgba(168,96,219,1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(90deg, rgba(53,69,133,1) 0%, rgba(168,96,219,1) 100%); /* ie10+ */
+  background: linear-gradient(0deg, rgba(53,69,133,1) 0%, rgba(168,96,219,1) 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A860DB', endColorstr='#354585',GradientType=0 ); /* ie6-9 */
+}
+
+.loginbtn:hover {
+  background-color: #5489f9;
+}
+
+.loginList {
+  color: white;
+}
+
+.loginLabel {
+  background-color: #8d60af;
+  color: white;
+}
+
+.loginInput {
+  color: white;
+    font-size: 17px
+}
+
+.loginError {
+  font-size: 15px;
+  color: white;
+}
+
+.mainTitle {
+  font-family: 'Bungee', cursive;
+  color: white;
+  font-size: 11vw;
+  border: solid 1px white;
+  border-radius: 8px;
+  padding: 13px;
+}
+
+.centered-login-page .scroll {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+
+.navtopbar {
+  position: absolute;
+    top: -14px;
+}
+
+.center-spinner {
+  text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    position: absolute;
+    top: 118%;
+    left: 50%;
+    height: 50%;
+
+    width: 10px;
+    height: 10px;
+    display: block;
+}

@@ -1,0 +1,26 @@
+<!--
+  STREAMS
+-->
+<ion-view view-title="Log Streams: {{logGroup}}">
+  <ion-content class="padding">
+
+      <ion-list>
+
+      <!-- Log Items -->
+      <ion-item style="margin: 10px; height: 170px;" 
+        class="item-remove-animate item-avatar item-icon-right"
+        ng-click="" 
+        nav-direction="back" 
+        ng-repeat="stream in streams" type="item-text-wrap">
+        <h2 style="font-size: 21px; height: 29px;">{{stream.logStreamName}}</h2>
+        <p>{{logGp.arn}}</p>
+        <div>Size: {{stream.storedBytes}}B &nbsp;&nbsp; | Created: {{stream.creationTime}}</div>
+        <div>First event occurred: {{stream.firstEventTimestamp}}</div>
+        <div>Last event occured: {{stream.lastEventTimestamp}}</div>
+        <div>Last ingest: {{stream.firstEventTimestamp}}</div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

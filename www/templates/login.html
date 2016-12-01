@@ -1,0 +1,22 @@
+<ion-view view-title="login">
+  <ion-content class="padding centered-login-page">
+    <h1 class="mainTitle">aws network monitor</h1>
+
+   <div class="list list-inset loginList">
+      <label class="item item-input loginLabel">
+        <input ng-model="$parent.username" type="text" class="loginInput" style="color:white; font-size:17px;" placeholder="Username">
+      </label>
+      <label class="item item-input loginLabel">
+        <input ng-model="$parent.password" class="loginInput" style="color:white; font-size:17px;" type="password" placeholder="Password">
+      </label>
+    </div>
+
+    <button ng-click="login()" class="button button-full button-positive loginbtn">
+      Login
+    </button>
+
+    <div ng-show="submitErrorExists" class="loginError">{{ submitError }}</div>
+
+
+  </ion-content>
+</ion-view>
