@@ -35,8 +35,6 @@ angular.module('app.controllers.dashcontroller', [])
           instances[j].LaunchTime = toJSONLocal(instances[j].LaunchTime)
         }
 
-
-
         $scope.EC2s = instances
 
       })

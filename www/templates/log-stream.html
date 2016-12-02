@@ -14,7 +14,7 @@
     <div class="divider row"></div>
     
     <div class="logsTable" ng-show="logData.length !== 0">
-      <div ng-repeat="log in logData | orderBy:'-'" class="log">
+      <div ng-repeat="log in logData | orderBy:'-'" class="log newLogElement">
         {{log.message}}
       </div>
     </div>

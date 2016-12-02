@@ -42,11 +42,25 @@ angular.module('app.controllers.streamctrl', [])
       // If there was new data
       if($scope.logData.length !== data.events.length) {
         $scope.newLogLinesCount = data.events.length - $scope.logData.length
+        console.log("LOGS COMING IN LENGTH", data.events.length)
+        console.log("LOGS ON SCREEN LENGTH", $scope.logData.length)
         console.log("[LOGGER]: " + $scope.newLogLinesCount + " new lines obtained. ")
 
-        $scope.$apply(function() {
-          $scope.logData = data.events
-        })
+        // Get the new lines from the data
+        if($scope.logData.length === 0) {
+          $scope.$apply(function() {
+            $scope.logData = data.events
+          })
+        // If it's not the initial add, just add whats new
+        } else {
+
+          for(var i = data.events.length - $scope.newLogLinesCount; i < data.events.length; i++) {
+            $scope.$apply(function() {
+              $scope.logData.push(data.events[i])
+            })
+          }
+        }
+
       } 
     })
   }
@@ -58,6 +72,7 @@ angular.module('app.controllers.streamctrl', [])
       SocketStream.stop()
       $scope.__statusSetDisconnected()
       $scope.logData = []
+      $scope.newLogLinesCount = 0;
 
     // If disconnected, ATTEMPT RECONNECTION
     } else {

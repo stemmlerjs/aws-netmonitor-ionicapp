@@ -8,22 +8,6 @@ angular.module('app.controllers', [
 ])
 
 
-/* =============================================================== //
-*  ====================== DASH CONTROLLER ======================== //
-*  =============================================================== //
-*/
-
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
-
 function checkIfAuthed (Auth, $state) {
   var t = window.localStorage.getItem('aws-netmonitor-token')
 

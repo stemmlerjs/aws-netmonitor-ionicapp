@@ -8,9 +8,6 @@
     </div>
 
     <select ng-model="selectedStartDate" ng-change="getMetricStats(selectedStartDate)" ng-options="x.choice for x in dateChoices"></select>
-
-
-
   </label>
 
   
@@ -29,7 +26,7 @@
   </div>
 
   <div class="statGroup">
-    <div class="stat">Mimimum</div>
+    <div class="stat">Minimum</div>
     <div ng-if="stats.Unit == 'Percent'" class="stat-item">{{stats.Minimum| number:2}}%</div>
     <div ng-if="stats.Unit == 'Bytes'" class="stat-item">{{stats.Minimum | number:0}} Bytes</div>
     <div ng-if="stats.Unit == 'Count'" class="stat-item">{{stats.Minimum | number:2}} (Count)</div>

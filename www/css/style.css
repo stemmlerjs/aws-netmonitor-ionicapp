@@ -142,3 +142,18 @@
 .statGroup {
   margin:46px;
 }
+
+.newLogElement {
+  border-radius: 2px;
+  animation: pulse 2s;
+  animation-timing-function: ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #57d675;
+  }
+  100% {
+    background-color: #412555;
+  }
+}
