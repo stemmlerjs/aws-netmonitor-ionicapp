@@ -34,6 +34,7 @@ angular.module('app.controllers.maincontroller', [])
           var token = response.data.token
 
           window.localStorage.setItem('aws-netmonitor-token', token)
+
           $state.go('tab.dash')
 
         } else {

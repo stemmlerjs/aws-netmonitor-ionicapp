@@ -1,0 +1,19 @@
+<ion-view view-title="Metrics">
+  <ion-content class="padding" style="background-color: #F6F8FB;">
+  <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+    <h2>AWS/EC2 - Metrics</h2>
+
+    <div ng-if="metrics.length === 0">
+      It doesn't look like there's any metrics for this instance yet.
+    </div>
+    <ul class="list">
+        <li class="item" ng-repeat="metric in metrics">
+          <a style="text-decoration: none;" href="#/tab/metrics/{{instanceId}}/{{metric.MetricName}}">{{ metric.MetricName }}</a>
+        </li>
+    </ul>
+
+  </ion-content>
+</ion-view>

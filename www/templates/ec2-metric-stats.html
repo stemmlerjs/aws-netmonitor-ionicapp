@@ -1,0 +1,47 @@
+<ion-view view-title="Stats">
+  <ion-content class="padding" style="background-color: #F6F8FB;">
+
+    <h3>{{metricName}}</h3>
+    <label class="item item-input item-select">
+    <div class="input-label">
+      Since
+    </div>
+
+    <select ng-model="selectedStartDate" ng-change="getMetricStats(selectedStartDate)" ng-options="x.choice for x in dateChoices"></select>
+
+
+
+  </label>
+
+  
+  <div class="statGroup">
+    <div class="stat">Average</div>
+    <div ng-if="stats.Unit == 'Percent'" class="stat-item">{{stats.Average | number:2}}%</div>
+    <div ng-if="stats.Unit == 'Bytes'" class="stat-item">{{stats.Average | number:0}} Bytes</div>
+    <div ng-if="stats.Unit == 'Count'" class="stat-item">{{stats.Average | number:2}} (Count)</div>
+  </div>
+
+  <div class="statGroup">
+    <div class="stat">Maximum</div>
+    <div ng-if="stats.Unit == 'Percent'" class="stat-item">{{stats.Maximum | number:2}}%</div>
+    <div ng-if="stats.Unit == 'Bytes'" class="stat-item">{{stats.Maximum | number:0}} Bytes</div>
+    <div ng-if="stats.Unit == 'Count'" class="stat-item">{{stats.Maximum | number:2}} (Count)</div>
+  </div>
+
+  <div class="statGroup">
+    <div class="stat">Mimimum</div>
+    <div ng-if="stats.Unit == 'Percent'" class="stat-item">{{stats.Minimum| number:2}}%</div>
+    <div ng-if="stats.Unit == 'Bytes'" class="stat-item">{{stats.Minimum | number:0}} Bytes</div>
+    <div ng-if="stats.Unit == 'Count'" class="stat-item">{{stats.Minimum | number:2}} (Count)</div>
+  </div>
+
+  <div class="statGroup">
+    <div ng-if="stats.Unit != 'Percent'" class="stat">Sum</div>
+    <div ng-if="stats.Unit == 'Bytes'" class="stat-item">{{stats.Sum | number:0}} Bytes</div>
+    <div ng-if="stats.Unit == 'Count'" class="stat-item">{{stats.Sum | number:2}} (Count)</div>
+  </div>
+
+  <div>
+
+  </ion-content>
+</ion-view>

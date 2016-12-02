@@ -11,30 +11,14 @@ angular.module('app.controllers.logcontroller', [])
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
   $scope.$on('$ionicView.enter', function(e) {
+    checkIfAuthed (Auth, $state)
     $scope.dispatchGetLogGroups()
   });
 
   $scope.logGroups = []
   $scope.loaded = false;
 
-  token = window.localStorage.getItem('aws-netmonitor-token')
-
-  if(token) {
-    Auth.verify(token)
-      .then(function(response) {
-        if(!response.data.success) {
-          $state.go('login')
-        }
-      }).catch(function(err) {
-        $state.go('login')
-      })
-  } else {
-    $state.go('login')
-  }
 
   $scope.dispatchGetLogGroups = function() {
     var defer = $q.defer()
@@ -57,22 +41,28 @@ angular.module('app.controllers.logcontroller', [])
       })
     return defer.promise
   }
-
-  $scope.dispatchGetLogGroups()
   
 
   $scope.doRefresh = function() {
-    $scope.dispatchGetLogGroups()
-     .finally(function() {
-       // Stop the ion-refresher from spinning
-       $scope.$broadcast('scroll.refreshComplete');
-     });
+    $scope.$apply(function() {
+      $scope.logGroups = []
+    })
+
+    setTimeout(function() {
+      $scope.dispatchGetLogGroups()
+       .finally(function() {
+         // Stop the ion-refresher from spinning
+         $scope.$broadcast('scroll.refreshComplete');
+       });
+    },1000)
+
   };
 
   function toJSONLocal (date) {
     var local = new Date(date);
+    var AM_PM = local.getHours() >= 12 ? 'pm' : 'am'
     local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return local.toJSON().slice(0, 10) + ", " + ("0" + local.getHours()).slice(-2) + ":" + ("0" + local.getMinutes()).slice(-2);
+    return local.toJSON().slice(0, 10) + ", " + ("0" + local.getHours()).slice(-2) + ":" + ("0" + local.getMinutes()).slice(-2) + " " + AM_PM;
   }
 
 })
@@ -82,42 +72,55 @@ angular.module('app.controllers.logcontroller', [])
 *  =============================================================== //
 */
 
-.controller('LogGroupCtrl', function($scope, $stateParams, Logs, Auth) {
+.controller('LogGroupCtrl', function($scope, $stateParams, Logs, Auth, $state, $q) {
   $scope.logGroup = $stateParams.logGroup.split('$').join('/')
 
   $scope.streams = []
 
-  token = window.localStorage.getItem('aws-netmonitor-token')
-
-  if(token) {
-    Auth.verify(token)
+  $scope.getLogStreamsByGroupName = function() {
+    var defer = $q.defer()
+    Logs.getLogStreamsByGroupName($scope.logGroup)
       .then(function(response) {
-        if(!response.data.success) {
-          $state.go('login')
+        console.log(response)
+        $scope.streams = response.data.streams.logStreams 
+
+        // Create human readable date time
+        for(var i = 0; i < $scope.streams.length; i++) {
+          $scope.streams[i].creationTime = toJSONLocal(new Date($scope.streams[i].creationTime))
+          $scope.streams[i].firstEventTimestamp = toJSONLocal(new Date($scope.streams[i].firstEventTimestamp))
+          $scope.streams[i].lastEventTimestamp = toJSONLocal(new Date($scope.streams[i].lastEventTimestamp))
+          $scope.streams[i].lastIngestionTime = toJSONLocal(new Date($scope.streams[i].lastIngestionTime))
         }
-      }).catch(function(err) {
-        $state.go('login')
+        defer.resolve()
       })
-  } else {
-    $state.go('login')
+      .catch(function(err) {
+        //$state.go('tab.logs')
+        defer.reject()
+      })
+    return defer.promise
   }
 
-  Logs.getLogStreamsByGroupName($scope.logGroup)
-    .then(function(response) {
-      $scope.streams = response.data.streams.logStreams 
+  checkIfAuthed (Auth, $state)
+  $scope.getLogStreamsByGroupName()
 
-      // Create human readable date time
-      for(var i = 0; i < $scope.streams.length; i++) {
-        $scope.streams[i].creationTime = toJSONLocal(new Date($scope.streams[i].creationTime))
-        $scope.streams[i].firstEventTimestamp = toJSONLocal(new Date($scope.streams[i].firstEventTimestamp))
-        $scope.streams[i].lastEventTimestamp = toJSONLocal(new Date($scope.streams[i].lastEventTimestamp))
-        $scope.streams[i].lastIngestionTime = toJSONLocal(new Date($scope.streams[i].lastIngestionTime))
-      }
+  $scope.doRefresh = function() {
+    $scope.$apply(function() {
+      $scope.streams = []
+    })
 
-    })
-    .catch(function(err) {
-      //$state.go('tab.logs')
-    })
+    setTimeout(function() {
+      $scope.getLogStreamsByGroupName()
+        .finally(function() {
+         // Stop the ion-refresher from spinning
+         $scope.$broadcast('scroll.refreshComplete');
+       });
+    },1000)
+  }
+
+  // $scope.$on('$ionicView.enter', function(e) {
+  //   checkIfAuthed (Auth, $state)
+  //   $scope.getLogStreamsByGroupName()
+  // });
 
 
 

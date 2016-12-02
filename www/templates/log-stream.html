@@ -8,13 +8,13 @@
     <div class="row">
       <div class="socketStatus col col-75">{{ socketStatus }}</div>
 
-      <button class="col button button-royal" style="min-height:0px">{{ connectionAction }}</button>
+      <button ng-click="disconnect_reconnect()" class="col button button-royal" ng-class="{disabled: socketStatus=='Attempting connection...'}" style="min-height:0px; font-size: 3vw;">{{ connectionAction }}</button>
     </div>
 
     <div class="divider row"></div>
     
-    <div class="logsTable">
-      <div ng-repeat="log in logData" class="log">
+    <div class="logsTable" ng-show="logData.length !== 0">
+      <div ng-repeat="log in logData | orderBy:'-'" class="log">
         {{log.message}}
       </div>
     </div>

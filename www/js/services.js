@@ -35,7 +35,7 @@ angular.module('starter.services', [])
 })
 
 .factory('Logs', function($http) {
-  var token = window.localStorage.getItem('aws-netmonitor-token')
+
 
   var logs = {
 
@@ -44,6 +44,9 @@ angular.module('starter.services', [])
     */
 
     getLogGroups: function() {
+      var token = window.localStorage.getItem('aws-netmonitor-token')
+      console.log("is it null", token)
+
       return $http({
         url: config.baseUrl + '/api/log/groups',
         method: 'GET',
@@ -63,6 +66,9 @@ angular.module('starter.services', [])
     */
 
     getLogStreamsByGroupName: function(groupName) {
+      var token = window.localStorage.getItem('aws-netmonitor-token')
+      console.log("is it null", token)
+
       return $http({
         url: config.baseUrl + '/api/log/streams',
         method: 'POST',
@@ -79,6 +85,52 @@ angular.module('starter.services', [])
   }
 
   return logs
+})
+
+.factory('EC2', function($http) {
+
+  var EC2 = {
+
+    getEC2Instances: function () {
+      var token = window.localStorage.getItem('aws-netmonitor-token')
+      return $http({
+        url: config.baseUrl + '/api/ec2',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        }
+      })
+    },
+
+    getEC2Metrics: function(instanceId) {
+      var token = window.localStorage.getItem('aws-netmonitor-token')
+      return $http({
+        url: config.baseUrl + '/api/ec2/' +instanceId+ "/metrics",
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        }
+      })
+
+    },
+
+    getMetricStats: function (reqObj) {
+      var token = window.localStorage.getItem('aws-netmonitor-token')
+      return $http({
+        url: config.baseUrl + '/api/ec2/metrics/stats',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        },
+        data: reqObj
+      })
+    }
+  }
+
+  return EC2
 })
 
 .factory('Chats', function() {

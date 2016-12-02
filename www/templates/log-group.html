@@ -3,6 +3,10 @@
 -->
 <ion-view view-title="Log Streams: {{logGroup}}">
   <ion-content class="padding">
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
 
       <ion-list>
 
@@ -15,9 +19,7 @@
         <h2 style="font-size: 21px; height: 29px;">{{stream.logStreamName}}</h2>
         <p>{{logGp.arn}}</p>
         <div>Size: {{stream.storedBytes}}B &nbsp;&nbsp; | Created: {{stream.creationTime}}</div>
-<!--         <div>First event occurred: {{stream.firstEventTimestamp}}</div>
-        <div>Last event occured: {{stream.lastEventTimestamp}}</div> -->
-        <div>Last ingest: {{stream.firstEventTimestamp}}</div>
+        <div>Last event occured: {{stream.lastEventTimestamp}}</div>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

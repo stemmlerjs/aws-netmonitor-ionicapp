@@ -1,6 +1,9 @@
+
 angular.module('app.controllers', [
   'app.controllers.maincontroller',
   'app.controllers.logcontroller',
+  'app.controllers.dashcontroller',
+  'app.controllers.metricscontroller',
   'app.controllers.streamctrl'
 ])
 
@@ -9,21 +12,6 @@ angular.module('app.controllers', [
 *  ====================== DASH CONTROLLER ======================== //
 *  =============================================================== //
 */
-
-.controller('DashCtrl', function($scope) {
-
-  $scope.doRefresh = function() {
-    $http.get('/new-items')
-     .success(function(newItems) {
-       $scope.items = newItems;
-     })
-     .finally(function() {
-       // Stop the ion-refresher from spinning
-       $scope.$broadcast('scroll.refreshComplete');
-     });
-  };
-
-})
 
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
@@ -35,3 +23,21 @@ angular.module('app.controllers', [
     enableFriends: true
   };
 });
+
+function checkIfAuthed (Auth, $state) {
+  var t = window.localStorage.getItem('aws-netmonitor-token')
+
+
+  if(t) {
+    Auth.verify(t)
+      .then(function(response) {
+        if(!response.data.success) {
+          $state.go('login')
+        }
+      }).catch(function(err) {
+        $state.go('login')
+      })
+  } else {
+    $state.go('login')
+  }
+}

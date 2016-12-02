@@ -50,7 +50,9 @@ angular.module('starter', ['ionic',
     controller: 'MainController'
   })
 
-  // Each tab has its own nav history stack:
+  // ========================================= //
+  // ============= DASH / METRIC TABS ======== //
+  // ========================================= //
 
   .state('tab.dash', {
     url: '/dash',
@@ -62,6 +64,30 @@ angular.module('starter', ['ionic',
     }
   })
 
+  .state('tab.metrics', {
+    url: '/metrics/:instanceId',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/ec2-metrics.html',
+        controller: 'MetricsController'
+      }
+    }
+  })
+
+  .state('tab.metrics-stats', {
+    url: '/metrics/:instanceId/:metricName',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/ec2-metric-stats.html',
+        controller: 'MetricStatsController'
+      }
+    }
+  })
+
+  // ========================================= //
+  // ============ LOG TABS =================== //
+  // ========================================= //
+
   .state('tab.logs', {
       url: '/logs',
       views: {
@@ -71,6 +97,7 @@ angular.module('starter', ['ionic',
         }
       }
     })
+
     .state('tab.log-group', {
       url: '/logs/:logGroup',
       views: {
@@ -80,6 +107,7 @@ angular.module('starter', ['ionic',
         }
       }
     })
+
     .state('tab.log-stream', {
       url: '/stream/:logGroup/:logStreamName',
       views: {
@@ -93,4 +121,10 @@ angular.module('starter', ['ionic',
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
-});
+})
+
+.filter('percentage', ['$filter', function ($filter) {
+  return function (input, decimals) {
+    return $filter('number')(input * 100, decimals) + '%';
+  };
+}]);
