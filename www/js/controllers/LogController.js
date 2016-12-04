@@ -5,7 +5,7 @@
 */
 
 angular.module('app.controllers.logcontroller', [])
-  .controller('LogsCtrl', function($scope, Chats, Logs, Auth, $q, $state) {
+  .controller('LogsCtrl', function($scope, Logs, Auth, $q, $state) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
